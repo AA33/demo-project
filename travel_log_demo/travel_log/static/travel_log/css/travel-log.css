@@ -1,3 +1,12 @@
 .travel-white {
     color: #ffffff !important;
 }
+
+.travel-align-left{
+    text-align: left !important;
+}
+
+#map-canvas { height: 50% !important;
+    width: 50% !important;
+    border: 1px solid !important;
+}

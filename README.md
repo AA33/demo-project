@@ -24,7 +24,7 @@ Modify `settings.py`  to specify a database and it's connection details. Then:
 
 		python manage.py syncdb
 		
-This will create the necessary tables in the database specified in the previous step..
+This will create the necessary tables in the database specified in the previous step.
 
 
 To run the demo app:

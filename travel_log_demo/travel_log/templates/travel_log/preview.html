@@ -1,5 +1,84 @@
-<div>&copy; Abhishek Anurag 2014</div>
-<h1>{{ trip.user.username }}'s Trip</h1>
+{% load url from future %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'travel_log/header.html' %}
+    <!-- Custom styles for this template -->
+    <link href="/static/travel_log/css/cover.css" rel="stylesheet">
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEoIpA9PL7EZ5i1pEQq9e2ypAaRZL8eMA">
+    </script>
+    <script type="text/javascript" src="/static/travel_log/js/travel.js">
+    </script>
+    <script type="text/javascript">
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 8
+            };
+            var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    {{ trip.trip_name }}
+                    <small>by {{ trip.user.username }}</small>
+                </h1>
+            </div>
+            <div class="media">
+                <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview.jpg" class="media-object"
+                                                   alt=''/></a>
+
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        {{ trip.trip_description }}
+                    </h4>
+                </div>
+            </div>
+            <br></br>
+
+            <div class="row clearfix">
+                <div class="col-md-12 column travel-align-left">
+                    {{ trip.trip_description }}
+                </div>
+            </div>
+            <br></br>
+
+            <h2 class="travel-align-left">Destinations:</h2>
+            <div class="row clearfix">
+                <div class="col-md-6 column travel-align-left">
+
+                    <ul>
+                        {% for destination in trip.destination_set.all %}
+                            <li>
+                                <h4>{{ destination.destination_name }}</h4>
+                                <span>Rating: {{ destination.rating }}</span>
+
+                                <div>{{ destination.destination_description }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="map-canvas" class="col-md-6 column">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--h1>{{ trip.user.username }}'s Trip</h1>
 <div>
     <h3>{{ trip.trip_name }}</h3>
     <div>{{ trip.start_date }} to {{ trip.end_date }}</div>
@@ -14,4 +93,8 @@
             </li>
         {% endfor %}
     </ul>
-</div>
+</div-->
+
+{% include 'travel_log/footer.html' %}
+</body>
+</html>
