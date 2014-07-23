@@ -1,0 +1,42 @@
+PROJECT
+-------
+
+The project is a simple travel log web application for people to track their trips and the destinations they visited on each trip. The idea is that people can tell stories based on their vacations to share it with others.
+
+A user should be able to create multiple trips, and each trip can have multiple (ordered) destinations.
+
+In general, a trip has a few pieces of information, like a name, start date, end date, and description.
+
+Each destination in a trip has a name, location, description, and rating (say, from 1 to 10).
+
+Each trip should have a public facing view that includes all of the information above for each destination, along with a map of the trip (you can use Google Maps for this). Other cool client side visualizations are welcome, too.
+
+
+GOAL
+----
+
+Demonstrate a simple working web application, with data storage and retrieval (CRUD), and a basic front end to interact with the data.
+
+Remember this is a demonstration project – we want to see the how and why of your process.
+
+We work in Python and Django (https://www.djangoproject.com/) but you're welcome to complete this in another language if you prefer. You're strongly encouraged to use a framework – don't spend time reinventing the wheel. Likewise, use something like Bootstrap to stub out the UI.
+
+
+USER STORY
+----------
+
+Jane just wrapped up her summer vacation, starting her summer vacation with a flight out of New York, traveling through London, France, and Germany before returning to her home in Boston. She's eager to show her exciting trip to her family.
+
+Jane searches the internet and finds the application. She's intrigued, and starts creating her journey. She titles her trip "Europe 2014" and starts adding her destinations:
+
+ 1. LaGuardia Airport, July 1, 2014. Rated 4/10, "Not enough power outlets! Flight was delayed TWICE. Airline staff were nice, at least."
+ 2. Heathrow, London, UK. July 2, 2014. Rated 6/10. "Much cleaner than LaGuardia. Had some trouble with my passport but the security agent helped me through."
+ 3. ...
+
+Jane then views her completed trip page and posts the link to Facebook and Twitter for all of her friends to see.
+
+
+FINISH
+------
+
+If you have any questions, ask. Let's talk again in about three days to see where you are.
