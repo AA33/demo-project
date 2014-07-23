@@ -1,11 +1,46 @@
-<h1>Welcome! Let's get you signed up quick.</h1>
+{% load url from future %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'travel_log/header.html' %}
+    <!-- Custom styles for this template -->
+    <link href="/static/travel_log/css/signin.css" rel="stylesheet">
+</head>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<body>
 
-<form action="{% url 'travel_log:signup' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create">
-    <input type="button" value="Cancel">
-    {#    todo: write cancel func in JS#}
-</form>
+<div class="container">
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'travel_log:signup' %}" method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading">Please sign up</h2>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.username.errors }}
+        <label for="id_username">Username:</label>
+        {{ form.username }}
+        <br></br>
+        {{ form.email.errors }}
+        <label for="id_email">Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        {{ form.email }}
+        <br></br>
+        {{ form.password.errors }}
+        <label for="id_password">Password:</label>
+        {{ form.password }}
+        <br></br>
+        <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+    </form>
+
+</div>
+
+<!-- FOOTER -->
+<div class="container marketing">
+    <hr class="featurette-divider">
+    <footer>
+        <p class="pull-right"><a href="{% url 'travel_log:index' %}">Home</a></p>
+
+        <p>&copy; 2014 Abhishek Anurag</p>
+    </footer>
+</div>
+{% include 'travel_log/footer.html' %}
+</body>

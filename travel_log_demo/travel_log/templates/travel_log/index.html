@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     {% include 'travel_log/header.html' %}
+    <!-- Custom styles for this template -->
+    <link href="/static/travel_log/css/carousel.css" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -19,11 +21,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Travel Log</a>
+                    <a class="navbar-brand travel-white" href="{% url 'travel_log:index' %}">Travel Log</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{% url 'travel_log:signup' %}">Sign up</a></li>
+                        <li><a href="{% url 'travel_log:signup' %}">Sign up</a></li>
                         <li><a href="{% url 'travel_log:userlogin' %}">Log in</a></li>
                     </ul>
                 </div>
@@ -112,7 +114,7 @@
 
             <p>Beautiful beaches, fancy drinks!!</p>
 
-            <p><a class="btn btn-default" href="{% url 'travel_log:preview' 5 %}" role="button">Preview »</a></p>
+            <p><a class="btn btn-default" href="{% url 'travel_log:preview' 1 %}" role="button">Preview »</a></p>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -142,24 +144,8 @@
     </div>
     <!-- /.row -->
 
-
-    <!-- START THE FEATURETTES -->
-    <hr class="featurette-divider">
-
-    <!-- /END THE FEATURETTES -->
-
-
-    <!-- FOOTER -->
-    <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-
-        <p>&copy; 2014 Abhishek Anurag</p>
-    </footer>
-
 </div>
 <!-- /.container -->
-
-
 {% include 'travel_log/footer.html' %}
 </body>
 </html>
