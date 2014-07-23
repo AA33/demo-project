@@ -1,0 +1,11 @@
+<h1>Welcome! Let's get you signed up quick.</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'travel_log:signup' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create">
+    <input type="button" value="Cancel">
+    {#    todo: write cancel func in JS#}
+</form>

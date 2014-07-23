@@ -1,0 +1,27 @@
+<div>&copy; Abhishek Anurag 2014</div>
+<a href="{% url 'travel_log:userlogout' %}">Log out</a>
+<h1>{{ trip.user.username }}'s Trip</h1>
+
+<form action="{% url 'travel_log:edit' trip.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" value="{{ trip.trip_name }}" name="trip_name">
+    <input type="datetime" value="{{ trip.start_date }}" name="start_date"> to <input type="datetime" value="{{ trip.end_date }}" name="end_date">
+    </br>
+    <textarea name="trip_description">{{ trip.trip_description }}</textarea>
+    <ul>
+        {% for destination in trip.destination_set.all %}
+            <li id="dest_{{ forloop.counter0 }}">
+                <span id="name_{{ forloop.counter0 }}">Name: <input type="text" value="{{ destination.destination_name }}" name="destination_name_{{ forloop.counter0 }}"></span>
+                <span id="rating_{{ forloop.counter0 }}">Rating: <input type="number" value="{{ destination.rating }}" name="rating_{{ forloop.counter0 }}"></span>
+                <span id="desc_{{ forloop.counter0 }}">Description: <textarea name="destination_description_{{ forloop.counter0 }}">{{ destination.destination_description }}</textarea></span>
+                <input type="checkbox" id="delete_{{ forloop.counter0 }}">
+            </li>
+        {% empty %}
+            <li>No destinations.</li>
+        {% endfor %}
+    </ul>
+    <input type="button" id="add_dest" value="Add destination">
+    <input type="submit" value="Save">
+    <input type="button" value="Cancel">
+</form>
+

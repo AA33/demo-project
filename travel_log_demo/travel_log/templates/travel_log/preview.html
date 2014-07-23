@@ -1,0 +1,17 @@
+<div>&copy; Abhishek Anurag 2014</div>
+<h1>{{ trip.user.username }}'s Trip</h1>
+<div>
+    <h3>{{ trip.trip_name }}</h3>
+    <div>{{ trip.start_date }} to {{ trip.end_date }}</div>
+    </br>
+    <div>{{ trip.trip_description }}</div>
+    <ul>
+        {% for destination in trip.destination_set.all %}
+            <li>
+                <h4>{{ destination.destination_name }}</h4>
+                <span>Rating: {{ destination.rating }}</span>
+                <div>{{ destination.destination_description }}</div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

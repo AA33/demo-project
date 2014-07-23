@@ -1,0 +1,43 @@
+{% load url from future %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    {% include 'travel_log/header.html' %}
+</head>
+<body>
+    <div>&copy; Abhishek Anurag 2014</div>
+    <h1>Travel Log for {{ username }}</h1>
+    <a href="{% url 'travel_log:userlogout' %}">Log out</a>
+
+    <h2>Recent Trips</h2>
+
+    <ul>
+        {% for trip in trips %}
+            <li>
+                <div>
+                    <h3>{{ trip.trip_name }}</h3>
+
+                    <div>{{ trip.start_date }} to {{ trip.end_date }}</div>
+                    </br>
+                    <div>{{ trip.trip_description }}</div>
+                    <ul>
+                        {% for destination in trip.destination_set.all %}
+                            <li>
+                                <h4>{{ destination.destination_name }}</h4>
+                                <span>Rating: {{ destination.rating }}</span>
+
+                                <div>{{ destination.destination_description }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'travel_log:preview' trip.id %}">Preview</a>
+                    <a href="{% url 'travel_log:edit' trip.id %}">Edit</a>
+                    <a href="{% url 'travel_log:delete' trip.id %}">Delete</a>
+                </div>
+            </li>
+        {% endfor %}
+        <a href="{% url 'travel_log:add' %}">New</a>
+    </ul>
+    {% include 'travel_log/footer.html' %}
+</body>
+</html>
