@@ -45,7 +45,7 @@
             <h2 class="travel-align-left">Destinations:</h2>
 
             <div class="row clearfix">
-                <div class="col-md-6 column travel-align-left">
+                <div id="details" class="col-md-6 column travel-align-left">
 
                     <ul>
                         {% for destination in trip.destination_set.all %}
@@ -53,8 +53,9 @@
                                 <h4>{{ destination.destination_name }}</h4>
 
                                 <div name="rating_{{ forloop.counter0 }}"></div>
-                                <div class="hidden"
-                                     name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
+                                <div class="hidden" name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
+                                <div class="hidden" name="hidden_lat_{{ forloop.counter0 }}">{{ destination.location_lat }}</div>
+                                <div class="hidden" name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}</div>
                                 <div>{{ destination.destination_description }}</div>
                             </li>
                         {% endfor %}
