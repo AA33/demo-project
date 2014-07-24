@@ -3,23 +3,11 @@
 <html lang="en">
 <head>
     {% include 'travel_log/header.html' %}
+
     <!-- Custom styles for this template -->
     <link href="/static/travel_log/css/cover.css" rel="stylesheet">
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEoIpA9PL7EZ5i1pEQq9e2ypAaRZL8eMA">
-    </script>
-    <script type="text/javascript" src="/static/travel_log/js/travel.js">
-    </script>
-    <script type="text/javascript">
-        function initialize() {
-            var mapOptions = {
-                center: new google.maps.LatLng(-34.397, 150.644),
-                zoom: 8
-            };
-            var map = new google.maps.Map(document.getElementById("map-canvas"),
-                    mapOptions);
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
 
@@ -55,6 +43,7 @@
             <br></br>
 
             <h2 class="travel-align-left">Destinations:</h2>
+
             <div class="row clearfix">
                 <div class="col-md-6 column travel-align-left">
 
@@ -62,14 +51,16 @@
                         {% for destination in trip.destination_set.all %}
                             <li>
                                 <h4>{{ destination.destination_name }}</h4>
-                                <span>Rating: {{ destination.rating }}</span>
 
+                                <div name="rating_{{ forloop.counter0 }}"></div>
+                                <div class="hidden"
+                                     name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
                                 <div>{{ destination.destination_description }}</div>
                             </li>
                         {% endfor %}
                     </ul>
                 </div>
-                <div id="map-canvas" class="col-md-6 column">
+                <div id="map-canvas" class="col-md-6 column div-min-ht">
 
                 </div>
             </div>
@@ -77,24 +68,8 @@
     </div>
 </div>
 
-
-<!--h1>{{ trip.user.username }}'s Trip</h1>
-<div>
-    <h3>{{ trip.trip_name }}</h3>
-    <div>{{ trip.start_date }} to {{ trip.end_date }}</div>
-    </br>
-    <div>{{ trip.trip_description }}</div>
-    <ul>
-        {% for destination in trip.destination_set.all %}
-            <li>
-                <h4>{{ destination.destination_name }}</h4>
-                <span>Rating: {{ destination.rating }}</span>
-                <div>{{ destination.destination_description }}</div>
-            </li>
-        {% endfor %}
-    </ul>
-</div-->
-
 {% include 'travel_log/footer.html' %}
+<script type="text/javascript" src="/static/travel_log/js/jquery.raty.js"></script>
+<script type="text/javascript" src="/static/travel_log/js/preview.js"></script>
 </body>
 </html>

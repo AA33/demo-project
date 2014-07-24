@@ -6,6 +6,14 @@
     text-align: left !important;
 }
 
+.hidden {
+    height: 0px;
+}
+
+.div-min-ht{
+    min-height: 300px;
+}
+
 #map-canvas { height: 50% !important;
     width: 50% !important;
     border: 1px solid !important;
