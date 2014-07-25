@@ -1,6 +1,6 @@
 {% load url from future %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     {% include 'travel_log/header.html' %}
 
@@ -18,31 +18,21 @@
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">
-                <h1>
+                <h1 class="travel-align-left">
                     {{ trip.trip_name }}
                     <small>by {{ trip.user.username }}</small>
                 </h1>
             </div>
             <div class="media">
-                <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview.jpg" class="media-object"
+                <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg" class="media-object"
                                                    alt=''/></a>
-
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        {{ trip.trip_description }}
-                    </h4>
-                </div>
             </div>
-            <br></br>
-
+            <br>
             <div class="row clearfix">
                 <div class="col-md-12 column travel-align-left">
                     {{ trip.trip_description }}
                 </div>
             </div>
-            <br></br>
-
-            <h2 class="travel-align-left">Destinations:</h2>
 
             <div class="row clearfix">
                 <div id="details" class="col-md-6 column travel-align-left">

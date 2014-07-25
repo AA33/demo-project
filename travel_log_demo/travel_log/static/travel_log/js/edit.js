@@ -1,3 +1,6 @@
+/**
+ * Created by abhishekanurag on 7/24/14.
+ */
 $(document).ready(function () {
 
     //Raty Integration
@@ -6,7 +9,6 @@ $(document).ready(function () {
 
     for (var i = 0; i < rating_divs.length; i++) {
         $(rating_divs[i]).raty({ number: 10,
-            readOnly: true,
             score: parseInt(hidden_ratings[i].innerHTML)
         });
     }
@@ -43,12 +45,10 @@ $(document).ready(function () {
         var lng_divs = $("div[name*=hidden_lng_]");
         var path_coords = [];
         var lat, lng, location;
-        var bounds = new google.maps.LatLngBounds ();
         for (var i = 0; i < lat_divs.length; i++) {
             lat = parseFloat(lat_divs[i].innerHTML);
             lng = parseFloat(lng_divs[i].innerHTML);
             location = new google.maps.LatLng(lat, lng);
-            bounds.extend (location);
             placeMarker(location);
             path_coords.push(location);
         }
@@ -61,10 +61,24 @@ $(document).ready(function () {
             strokeWeight: 2
         });
         path.setMap(map);
-        map.fitBounds(bounds);
     }
 
     google.maps.event.addDomListener(window, 'load', mapInitialize());
 
     //Google maps Integration end
+
+    //Tie delete
+    var delete_buttons = $("button[name*=delete_dest_]");
+
+    for(var i=0; i<delete_buttons.length; i++){
+        button = delete_buttons[i];
+        $(button).click(function(){
+                var name_str = "#dest_"+i;
+            alert(name_str);
+                $(name_str).remove();
+                //$(button).remove();
+
+        })
+    }
+
 });

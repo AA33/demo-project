@@ -1,31 +1,31 @@
 $(document).ready(function () {
 
     //Raty Integration
-    var hidden_ratings = $("div[name*=hidden_rating_]");
-    var rating_divs = $("div[name^=rating]");
+    var trip_containers = $("div[name*=trip_container_]");
+    for(var trip=0; trip<trip_containers.length; trip++){
+        var trip_container_selector = "div[name=trip_container_"+trip+"]";
+        var hidden_ratings = $(trip_container_selector).find("div[name*=hidden_rating_]");
+        var rating_divs = $(trip_container_selector).find("div[name^=rating]");
 
-    for (var i = 0; i < rating_divs.length; i++) {
-        $(rating_divs[i]).raty({ number: 10,
-            readOnly: true,
-            score: parseInt(hidden_ratings[i].innerHTML)
-        });
+        for (var i = 0; i < rating_divs.length; i++) {
+            $(rating_divs[i]).raty({ number: 10,
+                readOnly: true,
+                score: parseInt(hidden_ratings[i].innerHTML)
+            });
+        }
     }
+
+
     //Raty integration end
-
-    //Fix map div height
-    var left_ht = $("#details").height();
-    if(left_ht>300){
-        $("#map-canvas").height(left_ht);
-    }
 
 
     //Google maps integration
-    function mapInitialize() {
+    function mapInitialize(i) {
         var mapOptions = {
             center: new google.maps.LatLng(0, 0),
             zoom: 3
         };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
+        var map = new google.maps.Map(document.getElementById("map-canvas_"+i),
             mapOptions);
 
 
@@ -38,9 +38,9 @@ $(document).ready(function () {
             map.setCenter(location);
         }
 
-
-        var lat_divs = $("div[name*=hidden_lat_]");
-        var lng_divs = $("div[name*=hidden_lng_]");
+        var trip_container_selector = "div[name=trip_container_"+i+"]";
+        var lat_divs = $(trip_container_selector).find("div[name*=hidden_lat_]");
+        var lng_divs = $(trip_container_selector).find("div[name*=hidden_lng_]");
         var path_coords = [];
         var lat, lng, location;
         var bounds = new google.maps.LatLngBounds ();
@@ -62,9 +62,13 @@ $(document).ready(function () {
         });
         path.setMap(map);
         map.fitBounds(bounds);
+
     }
 
-    google.maps.event.addDomListener(window, 'load', mapInitialize());
+    for(var trip=0; trip<trip_containers.length; trip++){
+        google.maps.event.addDomListener(window, 'load', mapInitialize(trip));
+    }
+
 
     //Google maps Integration end
 });

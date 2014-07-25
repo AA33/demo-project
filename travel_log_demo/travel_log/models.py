@@ -17,7 +17,7 @@ class Trip(models.Model):
 class Destination(models.Model):
     destination_name = models.CharField('Name', max_length=100)
 
-    loc_validators = [MaxValueValidator(90), MinValueValidator(-90)]
+    loc_validators = [MaxValueValidator(180), MinValueValidator(-180)]
     location_lat = models.FloatField('Latitude', validators=loc_validators)
     location_long = models.FloatField('Longitude', validators=loc_validators)
 

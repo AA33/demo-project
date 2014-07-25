@@ -2,7 +2,7 @@
     color: #ffffff !important;
 }
 
-.travel-align-left{
+.travel-align-left {
     text-align: left !important;
 }
 
@@ -10,11 +10,36 @@
     height: 0px;
 }
 
-.div-min-ht{
+.div-min-ht {
     min-height: 300px;
 }
 
-#map-canvas { height: 50% !important;
+#map-canvas {
+    height: 50% !important;
     width: 50% !important;
     border: 1px solid !important;
+}
+
+.left_buttons {
+    float: left;
+}
+
+.right_buttons {
+    float: right;
+}
+
+.rud-buttons-container {
+    height: 45px;
+}
+
+.rud-button {
+    overflow: auto;
+}
+
+.edit {
+    display: none;
+}
+
+.half-br {
+    height: 5px;
 }
