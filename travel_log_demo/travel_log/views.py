@@ -127,7 +127,7 @@ def trip_add(request):
 
 
 def trip_delete(request, trip_id):
-    print 'deleting'+trip_id
+    print 'deleting' + trip_id
     if request.method == TLG_DELETE:
         trip = Trip.objects.get(pk=trip_id).delete()
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))

@@ -32,7 +32,7 @@
                             {{ trip.trip_name }}
                             <small id="start_date_{{ forloop.counter0 }}">{{ trip.start_date }}</small>
                             <small> to</small>
-                            <small id=""end_date_{{ forloop.counter0 }}>{{ trip.end_date }}</small>
+                            <small id="" end_date_{{ forloop.counter0 }}>{{ trip.end_date }}</small>
                         </h3>
                     </div>
                     <div class="media">
@@ -70,7 +70,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div id="map-canvas_{{ forloop.counter0 }}" class="col-md-6 column div-min-ht">
+                        <div id="map-canvas_{{ forloop.counter0 }}" class="col-md-6 column div-min-ht maps">
 
                         </div>
                     </div>
@@ -80,13 +80,16 @@
             <div class="row clearfix">
                 <div class="col-md-12 column">
 
-                        <a id="edit_{{ forloop.counter0 }}" href="{% url 'travel_log:edit' trip.id %}" class="btn btn-lg btn-primary left_buttons"
-                            role="button">Edit</a>
+                    <a id="edit_{{ forloop.counter0 }}" href="{% url 'travel_log:edit' trip.id %}"
+                       class="btn btn-lg btn-primary left_buttons"
+                       role="button">Edit</a>
 
-                       <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary left_buttons" href="{% url 'travel_log:delete' trip.id %}"
-                               role="button">Delete</a>
-                        <a id="preview_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons" href="{% url 'travel_log:preview' trip.id %}"
-                               role="button">Preview</a>
+                    <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary left_buttons"
+                       href="{% url 'travel_log:delete' trip.id %}"
+                       role="button">Delete</a>
+                    <a id="preview_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons"
+                       href="{% url 'travel_log:preview' trip.id %}"
+                       role="button">Preview</a>
 
                 </div>
             </div>

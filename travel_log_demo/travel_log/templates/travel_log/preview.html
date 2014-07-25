@@ -12,7 +12,8 @@
 </head>
 
 <body>
-
+{% include 'travel_log/facebook.html' %}
+{% include 'travel_log/twitter.html' %}
 
 <div class="container">
     <div class="row clearfix">
@@ -21,18 +22,30 @@
                 <h1 class="travel-align-left">
                     {{ trip.trip_name }}
                     <small>by {{ trip.user.username }}</small>
+                    <div class="radio-inline">
+                        <div class="fb-like right_buttons fb" data-href="https://developers.facebook.com/docs/plugins/"
+                             data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
+                        <div class="right_buttons"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                        </div>
+                    </div>
+
+
                 </h1>
+
             </div>
             <div class="media">
-                <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg" class="media-object"
+                <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
+                                                   class="media-object"
                                                    alt=''/></a>
             </div>
             <br>
+
             <div class="row clearfix">
                 <div class="col-md-12 column travel-align-left">
                     {{ trip.trip_description }}
                 </div>
             </div>
+            <br>
 
             <div class="row clearfix">
                 <div id="details" class="col-md-6 column travel-align-left">
@@ -43,15 +56,18 @@
                                 <h4>{{ destination.destination_name }}</h4>
 
                                 <div name="rating_{{ forloop.counter0 }}"></div>
-                                <div class="hidden" name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
-                                <div class="hidden" name="hidden_lat_{{ forloop.counter0 }}">{{ destination.location_lat }}</div>
-                                <div class="hidden" name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}</div>
+                                <div class="hidden"
+                                     name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
+                                <div class="hidden"
+                                     name="hidden_lat_{{ forloop.counter0 }}">{{ destination.location_lat }}</div>
+                                <div class="hidden"
+                                     name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}</div>
                                 <div>{{ destination.destination_description }}</div>
                             </li>
                         {% endfor %}
                     </ul>
                 </div>
-                <div id="map-canvas" class="col-md-6 column div-min-ht">
+                <div id="map-canvas" class="col-md-6 column div-min-ht maps">
 
                 </div>
             </div>

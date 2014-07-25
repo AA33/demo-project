@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     //Fix map div height
     var left_ht = $("#details").height();
-    if(left_ht>300){
+    if (left_ht > 300) {
         $("#map-canvas").height(left_ht);
     }
 
@@ -43,12 +43,12 @@ $(document).ready(function () {
         var lng_divs = $("div[name*=hidden_lng_]");
         var path_coords = [];
         var lat, lng, location;
-        var bounds = new google.maps.LatLngBounds ();
+        var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < lat_divs.length; i++) {
             lat = parseFloat(lat_divs[i].innerHTML);
             lng = parseFloat(lng_divs[i].innerHTML);
             location = new google.maps.LatLng(lat, lng);
-            bounds.extend (location);
+            bounds.extend(location);
             placeMarker(location);
             path_coords.push(location);
         }

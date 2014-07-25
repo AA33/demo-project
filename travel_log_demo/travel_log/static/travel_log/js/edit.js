@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     //Fix map div height
     var left_ht = $("#details").height();
-    if(left_ht>300){
+    if (left_ht > 300) {
         $("#map-canvas").height(left_ht);
     }
 
@@ -70,13 +70,13 @@ $(document).ready(function () {
     //Tie delete
     var delete_buttons = $("button[name*=delete_dest_]");
 
-    for(var i=0; i<delete_buttons.length; i++){
+    for (var i = 0; i < delete_buttons.length; i++) {
         button = delete_buttons[i];
-        $(button).click(function(){
-                var name_str = "#dest_"+i;
+        $(button).click(function () {
+            var name_str = "#dest_" + i;
             alert(name_str);
-                $(name_str).remove();
-                //$(button).remove();
+            $(name_str).remove();
+            //$(button).remove();
 
         })
     }

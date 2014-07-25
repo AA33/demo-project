@@ -43,3 +43,21 @@
 .half-br {
     height: 5px;
 }
+
+.featurette-divider-half {
+    margin: 40px 0; /* Space out the Bootstrap <hr> more */
+}
+
+.div-max {
+    max-width: 100px;
+}
+
+.fb {
+    position: relative;
+    top: -6px;
+}
+
+.maps {
+    position: relative;
+    right: 12px;
+}

@@ -25,7 +25,7 @@ urlpatterns = patterns('',
                        # /travel_log/<trip_id>/delete
                        url(r'^(?P<trip_id>\d+)/delete/$', views.trip_delete, name='delete'),
 
-                       #CSS Test
+                       # CSS Test
                        url(r'^base/$', TemplateView.as_view(template_name='travel_log/base.html')),
 
 )
