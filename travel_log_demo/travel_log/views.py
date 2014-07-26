@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -11,7 +12,7 @@ from django.template import RequestContext
 from travel_log.constants import *
 import logging
 from travel_log.forms import SignupForm, LoginForm, TripFormSet
-from travel_log.models import Trip
+from travel_log.models import Trip, Destination
 
 logger = logging.getLogger(__name__)
 
@@ -105,6 +106,27 @@ def __trip_save__(trip, request):
     trip.end_date = parser.parse(request.POST.get('end_date'))
     trip.trip_description = request.POST.get('trip_description')
     trip.save()
+    dest_count = request.POST.get('dest_count')
+    dest_count = dest_count[:-1].split(',')
+    dest_count = map(int, dest_count)
+    destinations = []
+    for i in dest_count:
+        idx = str(i)
+        dest_name = request.POST.get('destination_name_edit_' + idx)
+        print dest_name
+        dest_rating = int(request.POST.get('rating_' + idx + '_edit'))
+        print request.POST.get('rating_' + idx + '_edit')
+        dest_lat = float(request.POST.get('hidden_lat_' + idx))
+        dest_long = float(request.POST.get('hidden_lng_' + idx))
+        dest_desc = request.POST.get('destination_desc_edit_' + idx)
+        dest = Destination(destination_name= dest_name, location_lat=dest_lat, location_long=dest_long, destination_description=dest_desc, rating=dest_rating, trip=trip)
+        destinations.append(dest)
+
+    for prev_dest in trip.destination_set.all():
+        prev_dest.delete()
+    for dest in destinations:
+        dest.save()
+
 
 
 def trip_edit(request, trip_id):

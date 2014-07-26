@@ -25,14 +25,17 @@
                            value="{{ trip.trip_name }}" required>
                     <input name="start_date" id="start_date_edit" type="date"
                            class="form-control dates" required>
+
                     <div id="start_date" class="hidden">{{ trip.start_date }}</div>
                     <input name="end_date" id="end_date_edit" type="date" class="form-control dates"
                            required>
+
                     <div id="end_date" class="hidden">{{ trip.end_date }}</div>
                 </div>
             </div>
             <div class="media">
-                <a href="#" class="pull-left"><img name="trip_cover" src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
+                <a href="#" class="pull-left"><img name="trip_cover"
+                                                   src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
                                                    class="media-object"
                                                    alt='No image available'/></a>
 
@@ -46,7 +49,10 @@
             </div>
             <br>
 
-            <h2 class="travel-align-left">Destinations:</h2>
+            <h2 class="travel-align-left">Destinations:
+                <button href="#" id="new_dest" class="btn btn-lg btn-primary" >Add Destination
+                </button>
+            </h2>
 
             <div class="row clearfix">
                 <div id="details" class="col-md-6 column travel-align-left">
@@ -54,27 +60,32 @@
                     <ul id="destinations">
                         {% for destination in trip.destination_set.all %}
                             <li id="dest_{{ forloop.counter0 }}">
-                                <input id="destination_name_edit_{{ forloop.counter0 }}" type="text"
+                                <input name="destination_name_edit_{{ forloop.counter0 }}" id="destination_name_edit_{{ forloop.counter0 }}" type="text"
                                        class="form-control small"
                                        value="{{ destination.destination_name }}" required>
 
-                                <div name="rating_{{ forloop.counter0 }}"></div>
-                                <input name="rating_{{ forloop.counter0 }}_edit" class="hidden">
+                                <div id="rating_{{ forloop.counter0 }}" name="rating_{{ forloop.counter0 }}"></div>
+                                <input id="rating_{{ forloop.counter0 }}_edit" name="rating_{{ forloop.counter0 }}_edit" class="hidden">
+
                                 <div class="hidden"
                                      name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
-                                <div class="hidden"
-                                     name="hidden_lat_{{ forloop.counter0 }}">{{ destination.location_lat }}</div>
-                                <div class="hidden"
-                                     name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}</div>
+                                <input class="form-control"
+                                       name="hidden_lat_{{ forloop.counter0 }}" value="{{ destination.location_lat }}">
+                                <input class="form-control"
+                                       name="hidden_lng_{{ forloop.counter0 }}" value="{{ destination.location_long }}">
 
                                 <textarea name="destination_desc_edit_{{ forloop.counter0 }}" type="text"
-                                          class="form-control small" rows="3">{{ destination.destination_description }}</textarea>
+                                          class="form-control small"
+                                          rows="3">{{ destination.destination_description }}</textarea>
+                                <button id="delete_dest_{{ forloop.counter0 }}" class="btn btn-lg btn-primary" >Delete
+                                </button>
                             </li>
 
-                            <br>
-                            <br>
+                            <br id="dest_break_0_{{ forloop.counter0 }}">
+                            <br id="dest_break_1_{{ forloop.counter0 }}">
                         {% endfor %}
                     </ul>
+                    <input id="dest_count" name="dest_count" type="text" class="hidden">
                 </div>
                 <div id="map-canvas" class="col-md-6 column div-min-ht maps">
 
@@ -85,7 +96,8 @@
 
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <button id="save_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons radio-inline" type="submit">Save
+            <button id="save_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons radio-inline"
+                    type="submit">Save
             </button>
             <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons radio-inline"
                href="{% url 'travel_log:home' %}"
