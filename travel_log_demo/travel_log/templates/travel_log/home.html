@@ -19,7 +19,11 @@
             <h1 class="travel-align-left">
                 Travel Log
                 <small>for {{ username }}</small>
+                <a id="new_trip" href="{% url 'travel_log:add' %}"
+                   class="btn btn-lg btn-primary right_buttons"
+                   role="button">Add Trip</a>
             </h1>
+
         </div>
 
         {% for trip in trips %}
@@ -36,10 +40,10 @@
                         </h3>
                     </div>
                     <div class="media">
-                        <a href="#" class="pull-left"><img
-                                src="/static/travel_log/images/usr/preview{{ forloop.counter }}.jpg"
+                        <a href="#" class="pull-left"><img name="trip_cover_{{ forloop.counter0 }}"
+                                src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
                                 class="media-object"
-                                alt=''/></a>
+                                alt='No image available'/></a>
                     </div>
                     <br></br>
 
@@ -81,13 +85,12 @@
                 <div class="col-md-12 column">
 
                     <a id="edit_{{ forloop.counter0 }}" href="{% url 'travel_log:edit' trip.id %}"
-                       class="btn btn-lg btn-primary left_buttons"
+                       class="btn btn-lg btn-primary left_buttons radio-inline"
                        role="button">Edit</a>
-
-                    <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary left_buttons"
+                    <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary left_buttons radio-inline"
                        href="{% url 'travel_log:delete' trip.id %}"
                        role="button">Delete</a>
-                    <a id="preview_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons"
+                    <a id="preview_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons radio-inline"
                        href="{% url 'travel_log:preview' trip.id %}"
                        role="button">Preview</a>
 

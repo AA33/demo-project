@@ -6,10 +6,15 @@ $(document).ready(function () {
     //Raty Integration
     var hidden_ratings = $("div[name*=hidden_rating_]");
     var rating_divs = $("div[name^=rating]");
+    var rating_edits = $("input[name^=rating_edit_]");
 
     for (var i = 0; i < rating_divs.length; i++) {
         $(rating_divs[i]).raty({ number: 10,
-            score: parseInt(hidden_ratings[i].innerHTML)
+            score: parseInt(hidden_ratings[i].innerHTML),
+            click: function (score, evt) {
+                var select = "#" + this.id + "_edit";
+                $(select).val(score);
+            }
         });
     }
     //Raty integration end
@@ -19,6 +24,26 @@ $(document).ready(function () {
     if (left_ht > 300) {
         $("#map-canvas").height(left_ht);
     }
+
+
+    //Set default dates
+    Date.prototype.toDateInputValue = (function () {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0, 10);
+    });
+    var sdate = $("#start_date").get(0).innerHTML;
+    var lasti = sdate.lastIndexOf(",");
+    sdate = sdate.substring(0, lasti);
+    var sDate_obj = new Date(sdate);
+    $("#start_date_edit").val(sDate_obj.toDateInputValue());
+
+    sdate = $("#end_date").get(0).innerHTML;
+    lasti = sdate.lastIndexOf(",");
+    sdate = sdate.substring(0, lasti);
+    sDate_obj = new Date(sdate);
+    $("#end_date_edit").val(sDate_obj.toDateInputValue());
+    //Done
 
 
     //Google maps integration
@@ -61,24 +86,40 @@ $(document).ready(function () {
             strokeWeight: 2
         });
         path.setMap(map);
+
+        //Adding destinations
+        function addDest(event) {
+            var dests = $("li[id^=dest]");
+            var clone_dest = $(dests[dests.length - 1]).clone();
+            var idx = parseInt(clone_dest.get(0).id.substring(clone_dest.get(0).id.lastIndexOf("_") + 1)) + 1;
+            clone_dest.id = "dest_" + idx;
+            var clone_children = $(clone_dest).children();
+
+            clone_children[0].id = "destination_name_edit_" + idx;
+            $(clone_children[0]).val("");
+            clone_children[1].name = "rating_" + idx;
+            //$(clone_children[1]).raty("score", 5);
+            clone_children[2].name = "rating_" + idx + "_edit";
+            clone_children[2].val = 5;
+            clone_children[3].name = "hidden_rating_" + idx;
+            $(clone_children[3]).html("5");
+            clone_children[4].name = "hidden_lat_" + idx;
+            $(clone_children[4]).html(event.latLng.lat());
+            clone_children[5].name = "hidden_lng_" + idx;
+            $(clone_children[5]).html(event.latLng.lng());
+            clone_children[6].name = "destination_desc_edit_" + idx;
+            $(clone_children[6]).html("");
+
+            $(clone_dest).appendTo("#destinations");
+            $(clone_dest).append('<br><br>');
+
+        }
+        //End
     }
 
     google.maps.event.addDomListener(window, 'load', mapInitialize());
-
     //Google maps Integration end
 
-    //Tie delete
-    var delete_buttons = $("button[name*=delete_dest_]");
 
-    for (var i = 0; i < delete_buttons.length; i++) {
-        button = delete_buttons[i];
-        $(button).click(function () {
-            var name_str = "#dest_" + i;
-            alert(name_str);
-            $(name_str).remove();
-            //$(button).remove();
-
-        })
-    }
 
 });

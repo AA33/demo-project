@@ -78,7 +78,7 @@ def home(request):
         if user.is_authenticated():
             if user.is_active:
                 # Redirect to a success page.
-                context = {'username': user.username, 'trips': user.trip_set.all()}
+                context = {'username': user.username, 'trips': user.trip_set.all().order_by('-start_date')}
                 return render(request, TLG_APP_NAME + '/home.html', context)
             else:
                 # Return a 'disabled account' error message
@@ -120,7 +120,8 @@ def trip_edit(request, trip_id):
 def trip_add(request):
     trip = Trip(user=request.user)
     if request.method == TLG_GET:
-        return render(request, TLG_APP_NAME + '/add.html')
+        context = {'trip': trip}
+        return render(request, TLG_APP_NAME + '/add.html', context)
     elif request.method == TLG_POST:
         __trip_save__(trip, request)
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
@@ -128,7 +129,7 @@ def trip_add(request):
 
 def trip_delete(request, trip_id):
     print 'deleting' + trip_id
-    if request.method == TLG_DELETE:
+    if request.method == TLG_GET:
         trip = Trip.objects.get(pk=trip_id).delete()
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
 

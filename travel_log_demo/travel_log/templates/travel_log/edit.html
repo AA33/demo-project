@@ -23,16 +23,18 @@
                     <h2 class="left_buttons">Edit trip</h2>
                     <input name="trip_name" id="nameplace_edit" type="text" class="form-control small"
                            value="{{ trip.trip_name }}" required>
-                    <input name="start_date" id="start_date_edit" type="text"
-                           class="form-control small" value="{{ trip.start_date }}" required>
-                    <input name="end_date" id="end_date_edit" type="text" class="form-control small"
-                           value="{{ trip.end_date }}" required>
+                    <input name="start_date" id="start_date_edit" type="date"
+                           class="form-control dates" required>
+                    <div id="start_date" class="hidden">{{ trip.start_date }}</div>
+                    <input name="end_date" id="end_date_edit" type="date" class="form-control dates"
+                           required>
+                    <div id="end_date" class="hidden">{{ trip.end_date }}</div>
                 </div>
             </div>
             <div class="media">
-                <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
+                <a href="#" class="pull-left"><img name="trip_cover" src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
                                                    class="media-object"
-                                                   alt=''/></a>
+                                                   alt='No image available'/></a>
 
 
             </div>
@@ -40,7 +42,7 @@
 
             <div id="trip_description_edit" class="media-body">
                 <textarea name="trip_description" id="trip_description"
-                          class="form-control">{{ trip.trip_description }}</textarea>
+                          class="form-control" rows="5">{{ trip.trip_description }}</textarea>
             </div>
             <br>
 
@@ -49,7 +51,7 @@
             <div class="row clearfix">
                 <div id="details" class="col-md-6 column travel-align-left">
 
-                    <ul>
+                    <ul id="destinations">
                         {% for destination in trip.destination_set.all %}
                             <li id="dest_{{ forloop.counter0 }}">
                                 <input id="destination_name_edit_{{ forloop.counter0 }}" type="text"
@@ -57,6 +59,7 @@
                                        value="{{ destination.destination_name }}" required>
 
                                 <div name="rating_{{ forloop.counter0 }}"></div>
+                                <input name="rating_{{ forloop.counter0 }}_edit" class="hidden">
                                 <div class="hidden"
                                      name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
                                 <div class="hidden"
@@ -64,15 +67,12 @@
                                 <div class="hidden"
                                      name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}</div>
 
-                                <textarea id="destination_desc_edit" type="text"
-                                          class="form-control small">{{ destination.destination_description }}</textarea>
-                                <!--button name="delete_dest_{{ forloop.counter0 }}"
-                                        class="btn btn-lg btn-primary">Delete
-                                </button-->
+                                <textarea name="destination_desc_edit_{{ forloop.counter0 }}" type="text"
+                                          class="form-control small" rows="3">{{ destination.destination_description }}</textarea>
                             </li>
 
-                            <br class="half-br">
-                            <br class="half-br">
+                            <br>
+                            <br>
                         {% endfor %}
                     </ul>
                 </div>
@@ -85,9 +85,9 @@
 
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <button id="save_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons" type="submit">Save
+            <button id="save_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons radio-inline" type="submit">Save
             </button>
-            <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons"
+            <a id="delete_{{ forloop.counter0 }}" class="btn btn-lg btn-primary right_buttons radio-inline"
                href="{% url 'travel_log:home' %}"
                role="button">Cancel</a>
         </div>

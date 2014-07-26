@@ -61,3 +61,13 @@
     position: relative;
     right: 12px;
 }
+
+.footer-feature {
+    width: 103%;
+    position: relative;
+    right: 17px;
+}
+
+.dates {
+    width: 23%;
+}
