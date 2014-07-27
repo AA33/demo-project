@@ -19,7 +19,7 @@ urlpatterns = patterns('',
                        # /travel_log/<trip_id>/preview
                        url(r'^(?P<trip_id>\d+)/preview/$', views.trip_preview, name='preview'),
                        # /travel_log/new
-                       url(r'^add/$', views.trip_add, name='add'),
+                       url(r'^edit/$', views.trip_edit, name='edit'),
                        # /travel_log/<trip_id>/edit
                        url(r'^(?P<trip_id>\d+)/edit/$', views.trip_edit, name='edit'),
                        # /travel_log/<trip_id>/delete

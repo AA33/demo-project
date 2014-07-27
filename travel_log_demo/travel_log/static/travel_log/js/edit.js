@@ -7,7 +7,7 @@ $(document).ready(function () {
     var hidden_ratings = $("div[name*=hidden_rating_]");
     var rating_divs = $("div[name^=rating]");
     var rating_edits = $("input[name^=rating_]");
-    var count_val="";
+    var count_val = "";
 
     for (var i = 0; i < rating_divs.length; i++) {
         count_val = count_val + i.toString() + ",";
@@ -94,10 +94,11 @@ $(document).ready(function () {
     function fixMapHeight() {
         var left_ht = $("#details").height();
         if (left_ht > 300) {
-            $("#map-canvas").height(left_ht-40);
+            $("#map-canvas").height(left_ht - 40);
         }
         google.maps.event.trigger(map, 'resize');
     }
+
     fixMapHeight();
     //Google maps Integration end
 
@@ -106,21 +107,30 @@ $(document).ready(function () {
         var dests = $("li[id^=dest]");
         var clone_dest = $(dests[dests.length - 1]).clone();
         var idx = parseInt(clone_dest.get(0).id.substring(clone_dest.get(0).id.lastIndexOf("_") + 1)) + 1;
-        clone_dest.id = "dest_" + idx;
+        clone_dest.attr("id", "dest_" + idx);
         var clone_children = $(clone_dest).children();
 
         clone_children[0].id = "destination_name_edit_" + idx;
+        clone_children[0].name = "destination_name_edit_" + idx;
         $(clone_children[0]).val("");
-        clone_children[1].name = "rating_" + idx;
-        //$(clone_children[1]).raty("score", 5);
-        clone_children[2].name = "rating_" + idx + "_edit";
-        clone_children[2].val = 5;
+
+        clone_children[1].id =  "rating_" + idx;
+        $(clone_children[1]).attr("name","rating_" +idx);
+
+
+        clone_children[2].id =  "rating_" + idx + "_edit";
+        $(clone_children[2]).attr("name","rating_" + idx + "_edit");
+        clone_children[2].value = 5;
+
         clone_children[3].name = "hidden_rating_" + idx;
         $(clone_children[3]).html("5");
+
         clone_children[4].name = "hidden_lat_" + idx;
         $(clone_children[4]).val("");
+
         clone_children[5].name = "hidden_lng_" + idx;
         $(clone_children[5]).val("");
+
         clone_children[6].name = "destination_desc_edit_" + idx;
         $(clone_children[6]).html("");
 
@@ -160,14 +170,14 @@ $(document).ready(function () {
         var cur_count = $("#dest_count").val();
         var idx_str = idx.toString();
         var cur_pos = cur_count.indexOf(idx_str);
-        var slice1 = cur_count.slice(0,cur_pos)
-        var slice2 = cur_count.slice(cur_pos+idx_str.length+1)
-        $("#dest_count").val(slice1+slice2);
+        var slice1 = cur_count.slice(0, cur_pos)
+        var slice2 = cur_count.slice(cur_pos + idx_str.length + 1)
+        $("#dest_count").val(slice1 + slice2);
         fixMapHeight();
     }
 
-    $("button[id^=delete_dest_]").each(function(index) {
-        $(this).click(function() {
+    $("button[id^=delete_dest_]").each(function (index) {
+        $(this).click(function () {
             var idx = parseInt($(this).get(0).id.substring($(this).get(0).id.lastIndexOf("_") + 1));
             deleteDest(idx);
         });

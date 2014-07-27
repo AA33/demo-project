@@ -14,7 +14,11 @@
 <body>
 
 
-<form class="container" method="post" action="{% url 'travel_log:edit' trip.id %}">
+<form class="container" method="post" action="{% if  trip.id == None %}
+    {% url 'travel_log:edit' %}
+{% else %}
+    {% url 'travel_log:edit' trip.id %}
+{% endif %}">
     {% csrf_token %}
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -50,7 +54,7 @@
             <br>
 
             <h2 class="travel-align-left">Destinations:
-                <button href="#" id="new_dest" class="btn btn-lg btn-primary" >Add Destination
+                <button href="#" id="new_dest" class="btn btn-lg btn-primary">Add Destination
                 </button>
             </h2>
 
@@ -58,32 +62,63 @@
                 <div id="details" class="col-md-6 column travel-align-left">
 
                     <ul id="destinations">
-                        {% for destination in trip.destination_set.all %}
-                            <li id="dest_{{ forloop.counter0 }}">
-                                <input name="destination_name_edit_{{ forloop.counter0 }}" id="destination_name_edit_{{ forloop.counter0 }}" type="text"
+                        {% if trip.destination_set.all|length == 0 %}
+                            <li id="dest_0">
+                                <input name="destination_name_edit_0"
+                                       id="destination_name_edit_0" type="text"
                                        class="form-control small"
-                                       value="{{ destination.destination_name }}" required>
+                                       value="" required>
 
-                                <div id="rating_{{ forloop.counter0 }}" name="rating_{{ forloop.counter0 }}"></div>
-                                <input id="rating_{{ forloop.counter0 }}_edit" name="rating_{{ forloop.counter0 }}_edit" class="hidden">
+                                <div id="rating_0" name="rating_0"></div>
+                                <input id="rating_0_edit" name="rating_0_edit"
+                                       class="hidden">
 
                                 <div class="hidden"
-                                     name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
+                                     name="hidden_rating_0">5</div>
                                 <input class="form-control"
-                                       name="hidden_lat_{{ forloop.counter0 }}" value="{{ destination.location_lat }}">
+                                       name="hidden_lat_0" value="">
                                 <input class="form-control"
-                                       name="hidden_lng_{{ forloop.counter0 }}" value="{{ destination.location_long }}">
+                                       name="hidden_lng_0" value="">
 
-                                <textarea name="destination_desc_edit_{{ forloop.counter0 }}" type="text"
+                                <textarea name="destination_desc_edit_0" type="text"
                                           class="form-control small"
-                                          rows="3">{{ destination.destination_description }}</textarea>
-                                <button id="delete_dest_{{ forloop.counter0 }}" class="btn btn-lg btn-primary" >Delete
+                                          rows="3"></textarea>
+                                <button id="delete_dest_0" class="btn btn-lg btn-primary">Delete
                                 </button>
                             </li>
 
-                            <br id="dest_break_0_{{ forloop.counter0 }}">
-                            <br id="dest_break_1_{{ forloop.counter0 }}">
-                        {% endfor %}
+                            <br id="dest_break_0_0">
+                            <br id="dest_break_1_0">
+                        {% else %}
+                            {% for destination in trip.destination_set.all %}
+                                <li id="dest_{{ forloop.counter0 }}">
+                                    <input name="destination_name_edit_{{ forloop.counter0 }}"
+                                           id="destination_name_edit_{{ forloop.counter0 }}" type="text"
+                                           class="form-control small"
+                                           value="{{ destination.destination_name }}" required>
+
+                                    <div id="rating_{{ forloop.counter0 }}" name="rating_{{ forloop.counter0 }}"></div>
+                                    <input id="rating_{{ forloop.counter0 }}_edit" name="rating_{{ forloop.counter0 }}_edit"
+                                           class="hidden">
+
+                                    <div class="hidden"
+                                         name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
+                                    <input class="form-control"
+                                           name="hidden_lat_{{ forloop.counter0 }}" value="{{ destination.location_lat }}">
+                                    <input class="form-control"
+                                           name="hidden_lng_{{ forloop.counter0 }}" value="{{ destination.location_long }}">
+
+                                    <textarea name="destination_desc_edit_{{ forloop.counter0 }}" type="text"
+                                              class="form-control small"
+                                              rows="3">{{ destination.destination_description }}</textarea>
+                                    <button id="delete_dest_{{ forloop.counter0 }}" class="btn btn-lg btn-primary">Delete
+                                    </button>
+                                </li>
+
+                                <br id="dest_break_0_{{ forloop.counter0 }}">
+                                <br id="dest_break_1_{{ forloop.counter0 }}">
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                     <input id="dest_count" name="dest_count" type="text" class="hidden">
                 </div>

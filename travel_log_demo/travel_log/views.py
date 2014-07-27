@@ -13,6 +13,7 @@ from travel_log.constants import *
 import logging
 from travel_log.forms import SignupForm, LoginForm, TripFormSet
 from travel_log.models import Trip, Destination
+from travel_log.utils import *
 
 logger = logging.getLogger(__name__)
 
@@ -108,19 +109,20 @@ def __trip_save__(trip, request):
     trip.save()
     dest_count = request.POST.get('dest_count')
     dest_count = dest_count[:-1].split(',')
-    dest_count = map(int, dest_count)
+    dest_count = map(get_int_or_neg, dest_count)
+    print dest_count
     destinations = []
     for i in dest_count:
-        idx = str(i)
-        dest_name = request.POST.get('destination_name_edit_' + idx)
-        print dest_name
-        dest_rating = int(request.POST.get('rating_' + idx + '_edit'))
-        print request.POST.get('rating_' + idx + '_edit')
-        dest_lat = float(request.POST.get('hidden_lat_' + idx))
-        dest_long = float(request.POST.get('hidden_lng_' + idx))
-        dest_desc = request.POST.get('destination_desc_edit_' + idx)
-        dest = Destination(destination_name= dest_name, location_lat=dest_lat, location_long=dest_long, destination_description=dest_desc, rating=dest_rating, trip=trip)
-        destinations.append(dest)
+        if i >= 0:
+            idx = str(i)
+            dest_name = request.POST.get('destination_name_edit_' + idx)
+            dest_rating = int(request.POST.get('rating_' + idx + '_edit'))
+            dest_lat = float(request.POST.get('hidden_lat_' + idx))
+            dest_long = float(request.POST.get('hidden_lng_' + idx))
+            dest_desc = request.POST.get('destination_desc_edit_' + idx)
+            dest = Destination(destination_name=dest_name, location_lat=dest_lat, location_long=dest_long,
+                               destination_description=dest_desc, rating=dest_rating, trip=trip)
+            destinations.append(dest)
 
     for prev_dest in trip.destination_set.all():
         prev_dest.delete()
@@ -128,22 +130,14 @@ def __trip_save__(trip, request):
         dest.save()
 
 
-
-def trip_edit(request, trip_id):
-    trip = Trip.objects.get(pk=trip_id)
+def trip_edit(request, trip_id=None):
+    if not trip_id:
+        trip = Trip(user=request.user)
+    else:
+        trip = Trip.objects.get(pk=trip_id, user=request.user)
     if request.method == TLG_GET:
         context = {'trip': trip}
         return render(request, TLG_APP_NAME + '/edit.html', context)
-    elif request.method == TLG_POST:
-        __trip_save__(trip, request)
-        return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
-
-
-def trip_add(request):
-    trip = Trip(user=request.user)
-    if request.method == TLG_GET:
-        context = {'trip': trip}
-        return render(request, TLG_APP_NAME + '/add.html', context)
     elif request.method == TLG_POST:
         __trip_save__(trip, request)
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
