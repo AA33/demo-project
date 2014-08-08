@@ -94,7 +94,7 @@ def home(request):
             })
 
 
-def trip_preview(request, trip_id):
+def trip_view(request, trip_id):
     trip = Trip.objects.get(pk=trip_id)
     show_edit = (trip.user == request.user and request.user.is_authenticated())
     context = {'trip': trip, 'show_edit': show_edit}
