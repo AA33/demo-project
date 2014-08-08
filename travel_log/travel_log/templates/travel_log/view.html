@@ -28,8 +28,11 @@
                         <div class="right_buttons"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                         </div>
                     </div>
-
-
+                    {% if show_edit %}
+                    <a id="new_trip" href="{% url 'travel_log:edit' %}"
+                       class="btn btn-lg btn-primary right_buttons"
+                       role="button">Edit Trip</a>
+                    {% endif %}
                 </h1>
 
             </div>
@@ -52,18 +55,21 @@
 
                     <ul>
                         {% for destination in trip.destination_set.all %}
-                            <li>
-                                <h4>{{ destination.destination_name }}</h4>
+                        <li>
+                            <h4>{{ destination.destination_name }}</h4>
 
-                                <div name="rating_{{ forloop.counter0 }}"></div>
-                                <div class="hidden"
-                                     name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}</div>
-                                <div class="hidden"
-                                     name="hidden_lat_{{ forloop.counter0 }}">{{ destination.location_lat }}</div>
-                                <div class="hidden"
-                                     name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}</div>
-                                <div>{{ destination.destination_description }}</div>
-                            </li>
+                            <div name="rating_{{ forloop.counter0 }}"></div>
+                            <div class="hidden"
+                                 name="hidden_rating_{{ forloop.counter0 }}">{{ destination.rating }}
+                            </div>
+                            <div class="hidden"
+                                 name="hidden_lat_{{ forloop.counter0 }}">{{ destination.location_lat }}
+                            </div>
+                            <div class="hidden"
+                                 name="hidden_lng_{{ forloop.counter0 }}">{{ destination.location_long }}
+                            </div>
+                            <div>{{ destination.destination_description }}</div>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -77,6 +83,6 @@
 
 {% include 'travel_log/footer.html' %}
 <script type="text/javascript" src="/static/travel_log/js/jquery.raty.js"></script>
-<script type="text/javascript" src="/static/travel_log/js/preview.js"></script>
+<script type="text/javascript" src="/static/travel_log/js/view.js"></script>
 </body>
 </html>

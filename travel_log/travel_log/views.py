@@ -95,8 +95,10 @@ def home(request):
 
 
 def trip_preview(request, trip_id):
-    context = {'trip': Trip.objects.get(pk=trip_id)}
-    return render(request, TLG_APP_NAME + '/preview.html', context)
+    trip = Trip.objects.get(pk=trip_id)
+    show_edit = (trip.user == request.user and request.user.is_authenticated())
+    context = {'trip': trip, 'show_edit': show_edit}
+    return render(request, TLG_APP_NAME + '/view.html', context)
 
 
 def __trip_save__(trip, request):
