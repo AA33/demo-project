@@ -3,9 +3,9 @@
     <hr class="featurette-divider footer-feature">
     <footer>
         <p class="pull-left"><a href="{% url 'travel_log:index' %}">Home</a></p>
-
+        {% if user.is_authenticated %}
         <p class="pull-right"><a href="{% url 'travel_log:userlogout' %}"> Log out</a></p>
-
+        {% endif %}
         <p>&copy; 2014 Abhishek Anurag</p>
     </footer>
 </div>
@@ -37,5 +37,6 @@
                                                            style="background-image: url(chrome-extension://kkelicaakdanhinjdeammmilcgefonfh/images/icon_19.png);"></a><span
         class="tooltipTitle">Window size: </span><span class="tooltipWidth" id="winWidth">1385</span> x <span
         class="tooltipHeight" id="winHeight">812</span><br><span class="tooltipTitle">Viewport size: </span><span
-        class="tooltipWidth" id="vpWidth">1385</span> x <span class="tooltipHeight" id="vpHeight">323</span></div>
+        class="tooltipWidth" id="vpWidth">1385</span> x <span class="tooltipHeight" id="vpHeight">323</span>
+</div>
 
