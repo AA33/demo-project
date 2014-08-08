@@ -5,6 +5,8 @@
         <p class="pull-left"><a href="{% url 'travel_log:index' %}">Home</a></p>
         {% if user.is_authenticated %}
         <p class="pull-right"><a href="{% url 'travel_log:userlogout' %}"> Log out</a></p>
+        {% else %}
+        <p class="pull-right"><a href="{% url 'travel_log:userlogin' %}"> Log in</a></p>
         {% endif %}
         <p>&copy; 2014 Abhishek Anurag</p>
     </footer>
