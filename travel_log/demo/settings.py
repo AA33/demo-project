@@ -26,7 +26,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 # List of callables that know how to import templates from various sources.
