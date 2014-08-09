@@ -12,6 +12,10 @@ $(document).ready(function () {
     }
     //Raty integration end
 
+    //Put current URL in FB share
+    $(".fb-like").attr('data-href',window.location);
+
+
     //Fix map div height
     var left_ht = $("#details").height();
     if (left_ht > 300) {
@@ -29,18 +33,32 @@ $(document).ready(function () {
             mapOptions);
 
 
-        function placeMarker(location) {
+        function placeMarker(location, dest_number, tooltip) {
+            var icon_url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + dest_number + "|F7685C|000000"
+            var marker_img = new google.maps.MarkerImage(icon_url,
+                new google.maps.Size(21, 34),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(10, 34));
+            var infowindow = new google.maps.InfoWindow({
+                content: tooltip,
+            });
             var marker = new google.maps.Marker({
                 position: location,
-                map: map
+                map: map,
+                icon: marker_img
             });
-
-            map.setCenter(location);
+            google.maps.event.addListener(marker, 'mouseover', function () {
+                infowindow.open(map, marker);
+            });
+            google.maps.event.addListener(marker, 'mouseout', function () {
+                infowindow.close();
+            });
         }
 
 
         var lat_divs = $("div[name*=hidden_lat_]");
         var lng_divs = $("div[name*=hidden_lng_]");
+        var name_heads = $("h4[name^=dest_name_]");
         var path_coords = [];
         var lat, lng, location;
         var bounds = new google.maps.LatLngBounds();
@@ -49,7 +67,7 @@ $(document).ready(function () {
             lng = parseFloat(lng_divs[i].innerHTML);
             location = new google.maps.LatLng(lat, lng);
             bounds.extend(location);
-            placeMarker(location);
+            placeMarker(location, i + 1, '<div class="map-tooltip">'+name_heads[i].innerHTML+'</div>');
             path_coords.push(location);
         }
 
