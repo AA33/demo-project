@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 import dateutil.parser
 from django import forms
 from django.contrib.auth.models import User
@@ -23,7 +23,7 @@ def index(request):
 
 
 def userlogin(request):
-    if request.method == TLG_POST:
+    if request.method == HTTP_POST:
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -51,7 +51,7 @@ def userlogin(request):
 
 
 def signup(request):
-    if request.method == TLG_POST:
+    if request.method == HTTP_POST:
         form = SignupForm(request.POST)
         if form.is_valid():
             try:
@@ -75,7 +75,7 @@ def signup(request):
 # todo: Use @login_required(login_url=TLG_APP_NAME+'/userlogin/')
 @login_required
 def home(request):
-    if request.method == TLG_GET:
+    if request.method == HTTP_GET:
         user = request.user
         if user.is_authenticated():
             if user.is_active:
@@ -95,10 +95,11 @@ def home(request):
 
 
 def trip_view(request, trip_id):
-    trip = Trip.objects.get(pk=trip_id)
-    show_edit = (trip.user == request.user and request.user.is_authenticated())
-    context = {'trip': trip, 'show_edit': show_edit}
-    return render(request, TLG_APP_NAME + '/view.html', context)
+    if request.method == HTTP_GET:
+        trip = get_object_or_404(Trip, id=trip_id)
+        show_edit = (trip.user == request.user and request.user.is_authenticated())
+        context = {'trip': trip, 'show_edit': show_edit}
+        return render(request, TLG_APP_NAME + '/view.html', context)
 
 
 def __trip_save__(trip, request):
@@ -137,17 +138,17 @@ def trip_edit(request, trip_id=None):
         trip = Trip(user=request.user)
     else:
         trip = Trip.objects.get(pk=trip_id, user=request.user)
-    if request.method == TLG_GET:
+    if request.method == HTTP_GET:
         context = {'trip': trip}
         return render(request, TLG_APP_NAME + '/edit.html', context)
-    elif request.method == TLG_POST:
+    elif request.method == HTTP_POST:
         __trip_save__(trip, request)
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
 
 
 def trip_delete(request, trip_id):
     print 'deleting' + trip_id
-    if request.method == TLG_GET:
+    if request.method == HTTP_GET:
         trip = Trip.objects.get(pk=trip_id).delete()
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
 
