@@ -16,8 +16,8 @@ urlpatterns = patterns('',
                        url(r'^signup/$', views.signup, name='signup'),
                        # /travel_log/home
                        url(r'^home/$', views.home, name='home'),
-                       # /travel_log/<trip_id>/preview
-                       url(r'^(?P<trip_id>\d+)/preview/$', views.trip_view, name='preview'),
+                       # /travel_log/<trip_id>/view
+                       url(r'^(?P<trip_id>\d+)/view/$', views.trip_view, name='view'),
                        # /travel_log/new
                        url(r'^edit/$', views.trip_edit, name='edit'),
                        # /travel_log/<trip_id>/edit
