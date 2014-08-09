@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /travel_log/userlogin
+Disallow: /travel_log/userlogout
+Disallow: /travel_log/signup
+Disallow: /admin
