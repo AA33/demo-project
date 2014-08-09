@@ -223,6 +223,5 @@ pip-log.txt
 
 #GoDaddy
 *godaddy_default
-travel_log_demo/demo/settings.py
 
-travel_log_demo/demo/settings.py
+travel_log/demo/settings.py
