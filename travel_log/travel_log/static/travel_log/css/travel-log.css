@@ -5,7 +5,9 @@
 .travel-align-left {
     text-align: left !important;
 }
-
+.travel-align-right {
+    text-align: right !important;
+}
 .hidden {
     height: 0px;
 }
@@ -70,4 +72,12 @@
 
 .dates {
     width: 23%;
+}
+
+.multi {
+    display: inline;
+}
+
+.map-tooltip {
+    color: #000000;
 }

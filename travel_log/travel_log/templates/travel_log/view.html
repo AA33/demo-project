@@ -18,24 +18,29 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <div class="page-header">
-                <h1 class="travel-align-left">
+            <div class="">
+                <div class=""><h1>
                     {{ trip.trip_name }}
                     <small>by {{ trip.user.username }}</small>
-                    <div class="radio-inline">
-                        <div class="fb-like right_buttons fb" data-href="https://developers.facebook.com/docs/plugins/"
-                             data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
-                        <div class="right_buttons"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-                        </div>
+                    <small> {{ trip.start_date|date:"d M Y" }}</small>
+                    <small> to</small>
+                    <small>{{ trip.end_date|date:"d M Y" }}</small>
+
+                </h1></div>
+
+                <div class="">
+                    <div class="fb-like" data-width="50" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                    <div class="radio-inline"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                     </div>
                     {% if show_edit %}
-                    <a id="new_trip" href="{% url 'travel_log:edit' %}"
-                       class="btn btn-lg btn-primary right_buttons"
-                       role="button">Edit Trip</a>
+                    <!--a id="new_trip" href="{% url 'travel_log:edit' %}"
+                       class="btn btn-primary radio-inline"
+                       role="button">Edit Trip</a-->
                     {% endif %}
-                </h1>
+                </div>
 
             </div>
+            <hr>
             <div class="media">
                 <a href="#" class="pull-left"><img src="/static/travel_log/images/usr/preview{{ trip.id }}.jpg"
                                                    class="media-object"
@@ -56,7 +61,7 @@
                     <ul>
                         {% for destination in trip.destination_set.all %}
                         <li>
-                            <h4>{{ destination.destination_name }}</h4>
+                            <h4 name="dest_name_{{ forloop.counter0 }}">{{ destination.destination_name }}</h4>
 
                             <div name="rating_{{ forloop.counter0 }}"></div>
                             <div class="hidden"
