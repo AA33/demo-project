@@ -18,7 +18,7 @@ urlpatterns = patterns('',
                        url(r'^home/$', views.home, name='home'),
                        # /travel_log/<trip_id>/view
                        url(r'^(?P<trip_id>\d+)/view/$', views.trip_view, name='view'),
-                       # /travel_log/new
+                       # /travel_log/edit : For new trips
                        url(r'^edit/$', views.trip_edit, name='edit'),
                        # /travel_log/<trip_id>/edit
                        url(r'^(?P<trip_id>\d+)/edit/$', views.trip_edit, name='edit'),
