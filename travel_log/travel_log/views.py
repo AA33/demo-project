@@ -23,6 +23,7 @@ def index(request):
 
 
 def userlogin(request):
+    form = LoginForm()
     if request.method == HTTP_POST:
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -37,16 +38,13 @@ def userlogin(request):
                 else:
                     # Return a 'disabled account' error message
                     return render(request, TLG_APP_NAME + '/login.html', {
-                        TLG_ERR_MSG: "The account for the username you entered has been disabled.",
+                        TLG_ERR_MSG: "The account for the username you entered has been disabled.", 'form': form
                     })
             else:
                 # Return an 'invalid login' error message.
                 return render(request, TLG_APP_NAME + '/login.html', {
-                    TLG_ERR_MSG: "The username or password you entered is incorrect.",
+                    TLG_ERR_MSG: "The username or password you entered is incorrect.", 'form': form
                 })
-    else:
-        form = LoginForm()
-
     return render(request, TLG_APP_NAME + '/login.html', {'form': form})
 
 
@@ -73,7 +71,6 @@ def signup(request):
 
 
 # todo: Use @login_required(login_url=TLG_APP_NAME+'/userlogin/')
-@login_required
 def home(request):
     if request.method == HTTP_GET:
         user = request.user
@@ -89,8 +86,10 @@ def home(request):
                 })
         else:
             # Return an 'invalid login' error message.
+            form = LoginForm()
             return render(request, TLG_APP_NAME + '/login.html', {
                 TLG_ERR_MSG: "Please log in first.",
+                'form': form,
             })
 
 
