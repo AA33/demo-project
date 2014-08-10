@@ -1,3 +1,5 @@
+/*global $:false */
+/*global google:false */
 $(document).ready(function () {
 
     //Raty Integration
@@ -34,7 +36,7 @@ $(document).ready(function () {
 
 
         function placeMarker(location, dest_number, tooltip) {
-            var icon_url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + dest_number + "|F7685C|000000"
+            var icon_url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + dest_number + "|F7685C|000000";
             var marker_img = new google.maps.MarkerImage(icon_url,
                 new google.maps.Size(21, 34),
                 new google.maps.Point(0, 0),
