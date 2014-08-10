@@ -1,27 +1,30 @@
+import logging
+
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 import dateutil.parser
-from django import forms
 from django.contrib.auth.models import User
-from django.template import RequestContext
+
 from travel_log.constants import *
-import logging
-from travel_log.forms import SignupForm, LoginForm, TripFormSet
+from travel_log.forms import LoginForm, SignupForm
 from travel_log.models import Trip, Destination
 from travel_log.utils import *
 
+
 logger = logging.getLogger(__name__)
 
-
+'''
+Travel log views
+'''
+# Site homepage view
 def index(request):
     return render(request, TLG_APP_NAME + '/index.html')
 
 
+# Login view
 def userlogin(request):
     form = LoginForm()
     if request.method == HTTP_POST:
@@ -48,6 +51,7 @@ def userlogin(request):
     return render(request, TLG_APP_NAME + '/login.html', {'form': form})
 
 
+# Sign up view
 def signup(request):
     if request.method == HTTP_POST:
         form = SignupForm(request.POST)
@@ -70,6 +74,7 @@ def signup(request):
     return render(request, TLG_APP_NAME + '/signup.html', {'form': form})
 
 
+# User's homepage view
 # todo: Use @login_required(login_url=TLG_APP_NAME+'/userlogin/')
 def home(request):
     if request.method == HTTP_GET:
@@ -93,6 +98,7 @@ def home(request):
             })
 
 
+# Detail view for a trip
 def trip_view(request, trip_id):
     if request.method == HTTP_GET:
         trip = get_object_or_404(Trip, id=trip_id)
@@ -101,6 +107,7 @@ def trip_view(request, trip_id):
         return render(request, TLG_APP_NAME + '/view.html', context)
 
 
+# Helper function to save a trip
 def __trip_save__(trip, request):
     trip.trip_name = request.POST.get('trip_name')
     # July 21, 2014, 12:48 a.m
@@ -132,6 +139,7 @@ def __trip_save__(trip, request):
         dest.save()
 
 
+# Edit a trip view
 def trip_edit(request, trip_id=None):
     if not trip_id:
         trip = Trip(user=request.user)
@@ -145,6 +153,7 @@ def trip_edit(request, trip_id=None):
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
 
 
+# Delete a trip view
 def trip_delete(request, trip_id):
     print 'deleting' + trip_id
     if request.method == HTTP_GET:
@@ -152,6 +161,7 @@ def trip_delete(request, trip_id):
         return HttpResponseRedirect(reverse(TLG_APP_NAME + ':home'))
 
 
+# User logout view
 def userlogout(request):
     logout(request)
     return HttpResponseRedirect(reverse(TLG_APP_NAME + ':index'))
