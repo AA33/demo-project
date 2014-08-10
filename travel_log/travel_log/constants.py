@@ -1,4 +1,7 @@
 __author__ = 'abhishekanurag'
+'''
+String constants for the project
+'''
 
 TLG_APP_NAME = 'travel_log'
 

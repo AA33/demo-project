@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+# Model for a trip
 class Trip(models.Model):
     trip_name = models.CharField('Name', max_length=100)
     start_date = models.DateTimeField('Start Date')
@@ -13,7 +14,7 @@ class Trip(models.Model):
     def __unicode__(self):
         return self.trip_name + '/' + self.user.username
 
-
+# Model for a destination visited during a trip
 class Destination(models.Model):
     destination_name = models.CharField('Name', max_length=100)
 
